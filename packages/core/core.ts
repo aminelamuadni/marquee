@@ -78,8 +78,14 @@ class Marquee {
     this.animation?.cancel()
 
     const duration = pxPerSecond(this.childWidth, this.speed)
-    const keyframes =
-      direction === 1
+
+    const isRtl = getComputedStyle(this.root).direction === 'rtl'
+
+    const keyframes = isRtl
+      ? direction === 1
+        ? [{ transform: 'translate3d(0%,0,0)' }, { transform: 'translate3d(50%,0,0)' }]
+        : [{ transform: 'translate3d(50%,0,0)' }, { transform: 'translate3d(0%,0,0)' }]
+      : direction === 1
         ? [{ transform: 'translate3d(0%,0,0)' }, { transform: 'translate3d(-50%,0,0)' }]
         : [{ transform: 'translate3d(-50%,0,0)' }, { transform: 'translate3d(0%,0,0)' }]
 
